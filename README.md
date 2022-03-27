@@ -21,6 +21,7 @@
 
 ## 💝 Thanks to
 
+- [pacbru1260](https://github.com/pacbru1260)
 - [Sanjay Pavan](https://github.com/WitherCubes)
 
 &nbsp;
