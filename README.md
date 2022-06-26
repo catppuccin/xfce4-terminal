@@ -15,8 +15,8 @@
 
 ## Usage
 
-1. Copy selected flavour form `src` folder to `~/.local/share/xfce4/terminal/colorschemes` (create folder if doesn't exist).
-2. Open terminal and go to `Preferences → Colors → Presets`.
+1. Copy selected flavour file from `src` folder to `~/.local/share/xfce4/terminal/colorschemes` (create folder if doesn't exist).
+2. Open XFCE4-terminal and go to `Preferences → Colors → Presets`.
 3. Choose flavour in the drop-down.
 
 ## 💝 Thanks to
