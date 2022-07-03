@@ -15,14 +15,15 @@
 
 ## Usage
 
-1. Put `Catppuccin.theme` in `~/.local/share/xfce4/terminal/colorschemes`.
-2. Go to `Preferences → Colors → Presets`.
-3. Choose `Catppuccin` in the drop-down.
+1. Copy selected flavour file from `src` folder to `~/.local/share/xfce4/terminal/colorschemes` (create folder if doesn't exist).
+2. Open XFCE4-terminal and go to `Preferences → Colors → Presets`.
+3. Choose flavour in the drop-down.
 
 ## 💝 Thanks to
 
 - [pacbru1260](https://github.com/pacbru1260)
 - [Sanjay Pavan](https://github.com/WitherCubes)
+- [elkrien](https://github.com/elkrien)
 
 &nbsp;
 
