@@ -1,6 +1,7 @@
 [Scheme]
 Name=Catppuccin-Latte
 ColorCursor=#DC8A78
+ColorCursorForeground=#EFF1F5
 ColorCursorUseDefault=FALSE
 ColorForeground=#4C4F69
 ColorBackground=#EFF1F5

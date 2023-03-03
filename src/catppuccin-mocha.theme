@@ -1,6 +1,7 @@
 [Scheme]
 Name=Catppuccin-Mocha
 ColorCursor=#F5E0DC
+ColorCursorForeground=#11111B
 ColorCursorUseDefault=FALSE
 ColorForeground=#CDD6F4
 ColorBackground=#1E1E2E

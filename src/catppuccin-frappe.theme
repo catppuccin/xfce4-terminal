@@ -1,6 +1,7 @@
 [Scheme]
 Name=Catppuccin-Frappe
 ColorCursor=#F2D5CF
+ColorCursorForeground=#232634
 ColorCursorUseDefault=FALSE
 ColorForeground=#C6D0F5
 ColorBackground=#303446
