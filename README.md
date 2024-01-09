@@ -15,16 +15,27 @@
 
 ## Usage
 
+### Manually:
 1. Copy selected flavour file from `src` folder to `~/.local/share/xfce4/terminal/colorschemes` (create folder if doesn't exist).
 2. Open XFCE4-terminal and go to `Preferences → Colors → Presets`.
 3. Choose flavour in the drop-down.
 
+### Automatically:
+
+```bash
+if command -v curl >/dev/null 2>&1; then
+  bash -c "$(curl -Ls https://raw.githubusercontent.com/catppuccin/xfce4-terminal/main/install.sh)"
+else
+  bash -c "$(wget -O - https://raw.githubusercontent.com/catppuccin/xfce4-terminal/main/install.sh)"
+fi
+```
 ## 💝 Thanks to
 
 - [pacbru1260](https://github.com/pacbru1260)
 - [Sanjay Pavan](https://github.com/WitherCubes)
 - [elkrien](https://github.com/elkrien)
 - [extremepayne](https://github.com/extremepayne)
+- [ʟɪᴍᴇ@ᴠᴏɪᴅ](https://github.com/lime-desu)
 
 &nbsp;
 
