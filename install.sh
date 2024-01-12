@@ -1,12 +1,5 @@
-#!/bin/bash
-
+#!/usr/bin/env bash
 # set -eux
-declare -A color_schemes=(
-  ["frappe"]="#F2D5CF #232634 false #C6D0F5 #303446 #626880 #C6D0F5 false #EF9F76 #51576D;#E78284;#A6D189;#E5C890;#8CAAEE;#F4B8E4;#81C8BE;#B5BFE2;#626880;#E78284;#A6D189;#E5C890;#8CAAEE;#F4B8E4;#81C8BE;#A5ADCE"
-  ["latte"]="#DC8A78 #EFF1F5 false #4C4F69 #EFF1F5 #ACB0BE #4C4F69 false #FE640B #5C5F77;#D20F39;#40A02B;#DF8E1D;#1E66F5;#EA76CB;#179299;#ACB0BE;#6C6F85;#D20F39;#40A02B;#DF8E1D;#1E66F5;#EA76CB;#179299;#BCC0CC"
-  ["macchiato"]="#F4DBD6 #181926 false #CAD3F5 #24273A #5B6078 #CAD3F5 false #F5A97F #494D64;#ED8796;#A6DA95;#EED49F;#8AADF4;#F5BDE6;#8BD5CA;#B8C0E0;#5B6078;#ED8796;#A6DA95;#EED49F;#8AADF4;#F5BDE6;#8BD5CA;#A5ADCB"
-  ["mocha"]="#F5E0DC #11111B false #CDD6F4 #1E1E2E #585B70 #CDD6F4 false #FAB387 #45475A;#F38BA8;#A6E3A1;#F9E2AF;#89B4FA;#F5C2E7;#94E2D5;#BAC2DE;#585B70;#F38BA8;#A6E3A1;#F9E2AF;#89B4FA;#F5C2E7;#94E2D5;#A6ADC8"
-)
 
 function ascii_art() {
   cat <<"EOF"
@@ -38,82 +31,78 @@ function ascii_art() {
 EOF
 }
 
-function display_flavors() {
-  echo "Available flavors:"
-  index=1
-  for flavor in "${!color_schemes[@]}"; do
-    echo "$index - $flavor"
-    ((index++))
-  done
-  echo "5 - all"
-}
-
-function import_preset() {
+function apply_color_scheme() {
   local chosen_flavor="$1"
-  local src_dir=~/.local/share/xfce4/terminal/colorschemes
-  local src_url=https://raw.githubusercontent.com/catppuccin/xfce4-terminal/main/src/catppuccin-${chosen_flavor}.theme
-  local filename
-  filename=$(basename "$src_url")
+  local scheme_file="$2"
 
-  [[ -d "$src_dir" ]] || mkdir -p "$src_dir"
-
-  echo -e "Downloading/Importing preset from the source..."
-  if command -v curl &>/dev/null; then
-    curl -sL "$src_url" >"$src_dir/$filename"
-  elif command -v wget &>/dev/null; then
-    wget -qO- "$src_url" >"$src_dir/$filename"
-  fi
-
-  if [[ -f "$src_dir/$filename" ]]; then
-    echo "Preset: 'Catppuccin-$chosen_flavor' are imported successfully."
-  else
-    echo "Error: Unable to import the theme for 'Catppuccin-$chosen_flavor'."
-  fi
-}
-
-function set_color_scheme() {
+  # apply the chosen color scheme automatically, if no xfconf-query binary then print instructions.
   if command -v xfconf-query &>/dev/null; then
-    local chosen_flavor="$1"
-    IFS=' ' read -r -a colors <<<"${color_schemes[$chosen_flavor]}"
-    xfconf-query --channel xfce4-terminal --property /color-cursor --set "${colors[0]}"
-    xfconf-query --channel xfce4-terminal --property /color-cursor-foreground --set "${colors[1]}"
-    xfconf-query --channel xfce4-terminal --property /color-cursor-use-default --set "${colors[2]}"
-    xfconf-query --channel xfce4-terminal --property /color-foreground --set "${colors[3]}"
-    xfconf-query --channel xfce4-terminal --property /color-background --set "${colors[4]}"
-    xfconf-query --channel xfce4-terminal --property /color-selection-background --set "${colors[5]}"
-    xfconf-query --channel xfce4-terminal --property /color-selection --set "${colors[6]}"
-    xfconf-query --channel xfce4-terminal --property /color-selection-use-default --set "${colors[7]}"
-    xfconf-query --channel xfce4-terminal --property /tab-activity-color --set "${colors[8]}"
-    xfconf-query --channel xfce4-terminal --property /color-palette --set "${colors[9]}"
+    color_cursor=$(echo "$scheme_file" | awk '/^ColorCursor=/ {split($0, a, "="); print a[2]}')
+    color_cursor_fg=$(echo "$scheme_file" | awk '/^ColorCursorForeground=/ {split($0, a, "="); print a[2]}')
+    color_cursor_default="false"
+    color_fg=$(echo "$scheme_file" | awk '/^ColorForeground=/ {split($0, a, "="); print a[2]}')
+    color_bg=$(echo "$scheme_file" | awk '/^ColorBackground=/ {split($0, a, "="); print a[2]}')
+    color_selection_bg=$(echo "$scheme_file" | awk '/^ColorSelectionBackground=/ {split($0, a, "="); print a[2]}')
+    color_selection=$(echo "$scheme_file" | awk '/^ColorSelection=/ {split($0, a, "="); print a[2]}')
+    color_selection_default="false"
+    tab_activity_color=$(echo "$scheme_file" | awk '/^TabActivityColor=/ {split($0, a, "="); print a[2]}')
+    color_palette=$(echo "$scheme_file" | awk '/^ColorPalette=/ {split($0, a, "="); print a[2]}')
+    # c = channel , n = new/create , t = type , p = property
+    xfconf-query -c xfce4-terminal -n -t string -p /color-cursor --set "$color_cursor"
+    xfconf-query -c xfce4-terminal -n -t string -p /color-cursor-foreground --set "$color_cursor_fg"
+    xfconf-query -c xfce4-terminal -n -t string -p /color-cursor-use-default --set "$color_cursor_default"
+    xfconf-query -c xfce4-terminal -n -t string -p /color-foreground --set "$color_fg"
+    xfconf-query -c xfce4-terminal -n -t string -p /color-background --set "$color_bg"
+    xfconf-query -c xfce4-terminal -n -t string -p /color-selection-background --set "$color_selection_bg"
+    xfconf-query -c xfce4-terminal -n -t string -p /color-selection --set "$color_selection"
+    xfconf-query -c xfce4-terminal -n -t string -p /color-selection-use-default --set "$color_selection_default"
+    xfconf-query -c xfce4-terminal -n -t string -p /tab-activity-color --set "$tab_activity_color"
+    xfconf-query -c xfce4-terminal -n -t string -p /color-palette --set "$color_palette"
   else
     echo -e "Goto Preferences → Colors → Presets to apply the theme.\n"
   fi
 }
 
+function fetch_color_presets() {
+  local chosen_flavor="$1"
+  local src_dir=~/.local/share/xfce4/terminal/colorschemes
+  local src_url="https://raw.githubusercontent.com/catppuccin/xfce4-terminal/main/src/catppuccin-${chosen_flavor}.theme"
+  local filename
+  filename=$(basename "$src_url")
+
+  [[ -d "$src_dir" ]] || mkdir -p "$src_dir"
+
+  echo -e "Fetching preset from the source..."
+  [[ -z "$(command -v curl || command -v wget)" ]] && {
+    echo "Error: curl and wget command not found" && return 1
+  }
+  dl_cmd=$(command -v curl &>/dev/null && echo "curl -sL" || echo "wget -qO-")
+
+  # download the preset colorscheme file and apply it
+  local scheme_file
+  scheme_file=$($dl_cmd "$src_url")
+  echo "$scheme_file" >"$src_dir/$filename"
+  apply_color_scheme "$chosen_flavor" "$scheme_file"
+
+  if [[ -f "$src_dir/$filename" ]]; then
+    echo -e "Preset: 'Catppuccin-$chosen_flavor' has been downloaded successfully.\n"
+  else
+    echo -e "Error: Unable to download the theme for 'Catppuccin-$chosen_flavor'.\n"
+  fi
+}
+
 function main() {
   ascii_art && sleep 1
-  display_flavors
-  echo && read -rp "Choose flavor from num[1-5]: " chosen_flavor && echo
+  echo && read -rp "Type the flavor name (frappe, latte, macchiato, mocha, all): " chosen_flavor && echo
 
-  if ((chosen_flavor >= 1 && chosen_flavor <= ${#color_schemes[@]})); then
-    # Options 1-4: Import a specific chosen flavor
-    index=1
-    for flavor in "${!color_schemes[@]}"; do
-      if ((index == chosen_flavor)); then
-        import_preset "$flavor"
-        set_color_scheme "$flavor"
-        break
-      fi
-      ((index++))
-    done
-  elif ((chosen_flavor == 5)); then
-    # Option 5: Import all presets
-    for flavor in "${!color_schemes[@]}"; do
-      import_preset "$flavor"
-      set_color_scheme "$flavor"
+  if [[ "$chosen_flavor" =~ ^(frappe|latte|macchiato|mocha)$ ]]; then
+    fetch_color_presets "$chosen_flavor"
+  elif [[ "$chosen_flavor" == "all" ]]; then
+    for flavours in frappe latte macchiato mocha; do
+      fetch_color_presets "$flavours"
     done
   else
-    echo "Error: Invalid choice."
+    echo "Error: Invalid choice." && return 1
   fi
 }
 
