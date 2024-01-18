@@ -15,7 +15,33 @@
 
 ## Usage
 
-1. Copy selected flavour file from `src` folder to `~/.local/share/xfce4/terminal/colorschemes` (create folder if doesn't exist).
+1. Copy selected flavour file from `src` folder to `~/.local/share/xfce4/terminal/colorschemes` 
+
+    Create folder if it doesn't exist
+      ```sh
+      mkdir -p ~/.local/share/xfce4/terminal/colorschemes
+      ```
+
+  - Latte
+      ```sh
+      wget -O ~/.local/share/xfce4/terminal/colorschemes/catppuccin-latte.theme https://raw.githubusercontent.com/catppuccin/xfce4-terminal/main/src/catppuccin-latte.theme
+      ```
+
+  - Frappé
+      ```sh
+      wget -O ~/.local/share/xfce4/terminal/colorschemes/catppuccin-frappe https://raw.githubusercontent.com/catppuccin/xfce4-terminal/main/src/catppuccin-frappe.theme
+      ```
+
+  - Macchiato
+      ```sh
+      wget -O ~/.local/share/xfce4/terminal/colorschemes/catppuccin-macchiato https://raw.githubusercontent.com/catppuccin/xfce4-terminal/main/src/catppuccin-macchiato.theme
+      ```
+
+  - Mocha
+      ```sh
+      wget -O ~/.local/share/xfce4/terminal/colorschemes/catppuccin-mocha https://raw.githubusercontent.com/catppuccin/xfce4-terminal/main/src/catppuccin-mocha.theme
+      ```
+
 2. Open XFCE4-terminal and go to `Preferences → Colors → Presets`.
 3. Choose flavour in the drop-down.
 
