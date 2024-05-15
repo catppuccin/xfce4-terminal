@@ -1,0 +1,22 @@
+---
+whiskers:
+  version: 2.1.0
+  matrix:
+    - flavor
+  filename: "themes/catppuccin-{{ flavor.identifier }}.theme"
+---
+
+{%- set palette = flavor.colors -%}
+
+[Scheme]
+Name=Catppuccin-{{ flavor.name }}
+ColorCursor=#{{ palette.rosewater.hex  }}
+ColorCursorForeground=#{{ palette.crust.hex }}
+ColorCursorUseDefault=FALSE
+ColorForeground=#{{ palette.text.hex }}
+ColorBackground=#{{ palette.base.hex }}
+ColorSelectionBackground=#{{ palette.surface2.hex }}
+ColorSelection=#{{ palette.text.hex }}
+ColorSelectionUseDefault=FALSE
+TabActivityColor=#{{ palette.peach.hex }}
+ColorPalette=#{{ [palette.surface1, palette.red, palette.green, palette.yellow, palette.blue, palette.pink, palette.teal, palette.subtext1, palette.surface2, palette.red, palette.green, palette.yellow, palette.blue, palette.pink, palette.teal, palette.subtext0] | map(attribute="hex") | join(sep=";#") }}
