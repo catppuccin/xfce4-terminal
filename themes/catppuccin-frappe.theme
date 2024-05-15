@@ -1,0 +1,12 @@
+[Scheme]
+Name=Catppuccin-Frappé
+ColorCursor=#f2d5cf
+ColorCursorForeground=#232634
+ColorCursorUseDefault=FALSE
+ColorForeground=#c6d0f5
+ColorBackground=#303446
+ColorSelectionBackground=#626880
+ColorSelection=#c6d0f5
+ColorSelectionUseDefault=FALSE
+TabActivityColor=#ef9f76
+ColorPalette=#51576d;#e78284;#a6d189;#e5c890;#8caaee;#f4b8e4;#81c8be;#b5bfe2;#626880;#e78284;#a6d189;#e5c890;#8caaee;#f4b8e4;#81c8be;#a5adce

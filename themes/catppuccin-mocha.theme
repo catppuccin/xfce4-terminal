@@ -1,0 +1,12 @@
+[Scheme]
+Name=Catppuccin-Mocha
+ColorCursor=#f5e0dc
+ColorCursorForeground=#11111b
+ColorCursorUseDefault=FALSE
+ColorForeground=#cdd6f4
+ColorBackground=#1e1e2e
+ColorSelectionBackground=#585b70
+ColorSelection=#cdd6f4
+ColorSelectionUseDefault=FALSE
+TabActivityColor=#fab387
+ColorPalette=#45475a;#f38ba8;#a6e3a1;#f9e2af;#89b4fa;#f5c2e7;#94e2d5;#bac2de;#585b70;#f38ba8;#a6e3a1;#f9e2af;#89b4fa;#f5c2e7;#94e2d5;#a6adc8
